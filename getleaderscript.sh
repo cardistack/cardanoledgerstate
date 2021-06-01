@@ -6,10 +6,10 @@
 #then docker ps to  get the container name 
 #after run NETWORK=mainnet docker-compose -f docker-compose.yml  down  to cleanup before scheduling script
 CONTAINERNAME="cardanoledgerstate_cardano-node_1"
-WORKINGDIR="/absolute path to working directory/" #replace path to your working directory
+WORKINGDIR="/home/masterp/My_home_space/masterp/cardanoEnv/dumpledgerdocker/cardanoledgerstate" #replace path to your working directory
 cd $WORKINGDIR
 FILE=$WORKINGDIR/node-mainnet-ipc/node.socket
-NETWORK=mainnet docker-compose -f $WORKINGDIR/docker-compose.yml up -d
+NETWORK=mainnet /usr/bin/docker-compose -f $WORKINGDIR/docker-compose.yml up -d
  until test -S "$FILE"
 
  do 
@@ -24,12 +24,12 @@ NETWORK=mainnet docker-compose -f $WORKINGDIR/docker-compose.yml up -d
     echo "uploading to ftp''."
     $WORKINGDIR/ftpleader.sh
     echo "stopping node..."
-    /usr/bin/docker stop $CONTAINERNAME
+    ##/usr/bin/docker stop $CONTAINERNAME
     echo "deleting node socket volumes and tidying up"
-    /usr/bin/docker volume rm $CONTAINERNAME-mainnet-ipc
-    /usr/bin/docker volume rm $CONTAINERNAME_.node-mainnet-ipc
-    NETWORK=mainnet /usr/bin/docker-compose -f $WORKINGDIR/docker-compose.yml down 
-    NETWORK=mainnet /usr/bin/docker-compose -f $WORKINGDIR/docker-compose.yml up -d
-    NETWORK=mainnet /usr/bin/docker-compose -f $WORKINGDIR/docker-compose.yml down
-    rm -f $WORKINGDIR/ledger.json
+    ##/usr/bin/docker volume rm $CONTAINERNAME-mainnet-ipc
+    ##/usr/bin/docker volume rm $CONTAINERNAME_.node-mainnet-ipc
+    ##NETWORK=mainnet /usr/bin/docker-compose -f $WORKINGDIR/docker-compose.yml down 
+    ##NETWORK=mainnet /usr/bin/docker-compose -f $WORKINGDIR/docker-compose.yml up -d
+    ##NETWORK=mainnet /usr/bin/docker-compose -f $WORKINGDIR/docker-compose.yml down
+    ##rm -f $WORKINGDIR/ledger.json
     echo "All done.."
